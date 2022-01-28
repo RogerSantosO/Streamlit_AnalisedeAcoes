@@ -3,12 +3,13 @@ from pandas_datareader import data as pdr
 import yfinance as yf
 import pandas as pd
 from datetime import date
+import datetime
 from plotly import graph_objs as go
 
 yf.pdr_override() # <== that's all it takes :-)
 
-DATA_INICIO = '2017-01-01'
-DATA_FIM = date.today().strftime('%Y-%m-%d')
+
+#DATA_FIM = date.today().strftime('%Y-%m-%d')
 
 # download dataframe
 st.title('Pesquisa de ações')
@@ -28,11 +29,19 @@ acao_escolhida = df_acao.iloc[0]['sigla_acao']
 acao_escolhida = acao_escolhida + '.SA'
 
 @st.cache
-def pegar_valores_online(sigla_acao):
-    df = pdr.get_data_yahoo(sigla_acao, start='2020-01-01', end='2022-01-25')
+def pegar_valores_online(sigla_acao,inicio,fim):
+    df = pdr.get_data_yahoo(sigla_acao, start=inicio, end=fim)
     return df
 
-df_valores = pegar_valores_online(acao_escolhida)
+DATA_INICIO = st.sidebar.date_input(
+     "Escolha a data inicial",
+     datetime.date(2020, 1, 1))
+
+DATA_FIM = st.sidebar.date_input(
+     "Escolha a data final",
+     datetime.date(2022, 1, 1))
+
+df_valores = pegar_valores_online(acao_escolhida,DATA_INICIO,DATA_FIM)
 
 st.subheader('Tabela de valores - ' + nome_acao_escolhida)
 st.write(df_valores)
