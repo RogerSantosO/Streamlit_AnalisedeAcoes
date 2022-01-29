@@ -83,8 +83,6 @@ if baixa_check:
                          y=df_valores['Low'],
                          name='Preço mais baixo',
                          line_color='red'))
-else:
-    st.write('Selecione uma das opções do gráfico para ativá-lo')
 
 st.plotly_chart(fig)
 
