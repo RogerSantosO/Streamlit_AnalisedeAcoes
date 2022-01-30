@@ -25,7 +25,7 @@ nome_acao_escolhida = st.sidebar.selectbox('Escolha uma ação',acao)
 df2 = pegar_dados_acoes()
 
 acao2 = df2['snome']
-acao2_check = st.sidebar.checkbox('Adicionar mais uma ação')
+acao2_check = st.sidebar.checkbox('Analisar mais uma ação')
 if acao2_check:
     nome_acao_escolhida2 = st.sidebar.selectbox('Escolha a segunda ação',acao2) 
 
